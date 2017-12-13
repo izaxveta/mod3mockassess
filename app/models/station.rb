@@ -14,10 +14,9 @@ class Station
       faraday.adapter  Faraday.default_adapter
     end
     response = conn.get("nearest.json?api_key=#{ENV['API_KEY']}&location=#{location}&fuel_type=ELEC&limit=10")
-    stations = JSON.parse(response.body, symbolize_names: true)
-    stations[:fuel_stations].map do |station|
+    station_data = JSON.parse(response.body, symbolize_names: true)
+    station_data[:fuel_stations].map do |station|
       Station.new(station)
     end
-byebug
   end
 end
