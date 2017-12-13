@@ -1,9 +1,9 @@
-
+Search returned <%= @stations.count %> results
 
 <% @stations.each do |station| %>
-  <%= station.name %>
-  <%= station.address %>
-  <%= station.fuel_type %>
-  <%= station.distance %>
-  <%= station.access_times %>
+  Name: <%= station.name %><br>
+  Address: <%= station.address %><br>
+  Fuel type: <%= station.fuel_type %><br>
+  Distance: <%= station.distance %><br>
+  Open: <%= station.access_times %><br><br>
 <% end %>

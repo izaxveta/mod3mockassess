@@ -9,7 +9,7 @@ class Station
     @access_times = data[:access_days_time]
   end
 
-  def self.find_by_distance(location, distance)
+  def self.find_by_location(location, distance)
     conn = Faraday.new(url: "https://api.data.gov/nrel/alt-fuel-stations/v1/") do |faraday|
       faraday.adapter  Faraday.default_adapter
     end

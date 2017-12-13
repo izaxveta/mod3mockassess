@@ -11,10 +11,12 @@ feature "User can visit root page" do
 
   scenario "and can utilize search tool" do
     visit '/'
-    # fill_in "[]", with: "80203"
+    # fill_in , with: "80203"
     click_on "Locate"
 
     expect(current_path).to eq('/search')
+    expect(page).to have_content("6 results")
+    expect(page).to have_content("Name: ")
   end
 
 end
