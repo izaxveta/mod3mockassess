@@ -1,11 +1,23 @@
 class Station
+  attr_reader :name, :address, :fuel_types, :distance, :access_times
 
-  def self.find_by_distance(distance)
+  def initialize(data)
+    @name = data[:station_name]
+    @address = data[:street_address]
+    @fuel_types = data[:fuel_type_code]
+    @distance = data[:distance]
+    @access_times = data[:access_days_time]
+  end
+
+  def self.find_by_distance(location, distance)
     conn = Faraday.new(url: "https://api.data.gov/nrel/alt-fuel-stations/v1/") do |faraday|
       faraday.adapter  Faraday.default_adapter
     end
-    response = conn.get("nearest.json?api_key=#{ENV['API_KEY']}&location= ?fuel_type=ELEC")
-    # stations = JSON.parse(response.body, symbolize_names: true)
-
+    response = conn.get("nearest.json?api_key=#{ENV['API_KEY']}&location=#{location}&fuel_type=ELEC&limit=10")
+    stations = JSON.parse(response.body, symbolize_names: true)
+    stations[:fuel_stations].map do |station|
+      Station.new(station)
+    end
+byebug
   end
 end
